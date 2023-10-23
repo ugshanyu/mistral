@@ -1,0 +1,18 @@
+from datasets import load_dataset
+import jsonlines
+
+# Load the dataset
+dataset = load_dataset("ugshanyu/1millionMongolianSentence")
+
+# Modify the dataset (e.g., we'll add a new field called 'length' to store the length of each sentence)
+modified_dataset = dataset.with_format("pandas")
+modified_dataset["train"]["length"] = modified_dataset["train"]["sentence"].apply(len)
+
+# Convert the dataset to a list of dictionaries
+records = modified_dataset["train"].to_dict(orient="records")
+
+# Save the dataset as a JSONL file
+with jsonlines.open('modified_dataset.jsonl', mode='w') as writer:
+    writer.write_all(records)
+
+print("Dataset saved as modified_dataset.jsonl")
