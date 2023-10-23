@@ -102,7 +102,7 @@ def filter_long_samples(
     return _filter_tokenize_fn(examples, tokenizer)
 
 
-class SupervisedDataset(Dataset):
+class SupervisedDataset(torch.utils.data.Dataset):
     """Dataset for supervised fine-tuning."""
 
     def __init__(
